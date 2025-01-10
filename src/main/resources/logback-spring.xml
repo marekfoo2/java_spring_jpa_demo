@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_DIR" value="logs"/>
+
+    <property name="MESSAGE_FORMAT"
+              value="%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"/>
+
+    <springProfile name="dev">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${MESSAGE_FORMAT}</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="pl.mfconsulting.java.demo.springjpa" level="DEBUG"
+                additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="org.springframework" level="ERROR">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="org.apache" level="ERROR">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+
+        <root level="info">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="SAVE-TO-FILE"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_DIR}/mainLog.log</file>
+            <encoder
+                    class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${MESSAGE_FORMAT}</pattern>
+            </encoder>
+            <rollingPolicy
+                    class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_DIR}/archived/log_%d{dd-MM-yyyy}.log
+                </fileNamePattern>
+                <maxHistory>10</maxHistory>
+                <totalSizeCap>100MB</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+
+        <logger name="pl.mfconsulting.java.demo.springjpa" level="INFO"
+                additivity="false">
+            <appender-ref ref="SAVE-TO-FILE"/>
+        </logger>
+
+        <logger name="org.springframework.web" level="INFO">
+            <appender-ref ref="SAVE-TO-FILE"/>
+        </logger>
+
+        <root level="info">
+            <appender-ref ref="SAVE-TO-FILE"/>
+        </root>
+    </springProfile>
+
+
+    <!-- Log all SQL DML statements as they are executed -->
+    <logger name="org.hibernate.SQL" level="OFF"/>
+
+    <!-- Log all JDBC parameters -->
+    <logger name="org.hibernate.type" level="OFF"/>
+
+    <!-- Log all SQL DDL statements as they are executed -->
+    <logger name="org.hibernate.tool.hbm2ddl" level="OFF"/>
+
+    <!-- Log the state of all entities (max 20 entities) associated with the session at flush time -->
+    <logger name="org.hibernate.pretty" level="OFF"/>
+</configuration>

@@ -1,0 +1,80 @@
+plugins {
+	id 'java'
+	id 'org.flywaydb.flyway' version '10.0.0'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'pl.mfconsulting.java'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '21'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+} 
+
+dependencies {
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa',
+	"org.springframework.boot:spring-boot-starter-validation")
+	implementation ("org.springframework.boot:spring-boot-starter-web"){
+        exclude module: "spring-boot-starter-tomcat"
+    }
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	//H2
+	runtimeOnly 'com.h2database:h2'
+	
+	implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.0.0'
+
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test',
+	  'org.junit.jupiter:junit-jupiter')
+
+	testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.11'
+
+	//H2
+    // testImplementation 'com.h2database:h2'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+clean.doFirst {
+    file('data/test_dev.mv.db').delete()
+    file('data/dev_dev.mv.db').delete()
+	file('/home/ice/.gradle/daemon/8.12/data/dev.mv.db').delete()
+	file('/home/ice/.gradle/daemon/8.12/data/test_dev.mv.db').delete()
+}
+
+
+task bootRunDev {
+    bootRun.configure {
+        systemProperty "spring.profiles.active", 'Dev'
+    }
+}
+
+bootRunDev.finalizedBy bootRun
+
+//Run migration for dev
+flyway {
+	url = 'jdbc:h2:file:./data/dev'
+	user = 'sa'
+	password = ''
+	schemas = ['public']
+	locations = ['classpath:db/migration']
+}
+
+build.dependsOn(flywayMigrate)

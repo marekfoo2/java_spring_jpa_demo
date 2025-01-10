@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="15 seconds" debug="false">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{ISO8601}]-[%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="pl.mfconsulting.java.demo.springjpa" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <!-- Prints time of query execution -->
+    <logger name="org.hibernate.stat" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>        
+    <logger name="org.springframework" level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="org.apache" level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

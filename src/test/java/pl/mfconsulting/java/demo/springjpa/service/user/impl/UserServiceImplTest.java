@@ -1,0 +1,41 @@
+package pl.mfconsulting.java.demo.springjpa.service.user.impl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
+import pl.mfconsulting.java.demo.springjpa.configuration.IntegrationTransactionalContext;
+import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.service.user.UserService;
+
+
+public class UserServiceImplTest extends IntegrationTransactionalContext{
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    void testFindAllPostsByTitleWithComments() {
+        // given
+        int quant = 100;
+        int maxCount = 25;
+
+        List<User> users = createAndSaveUsers(quant);
+        users.forEach(userService::addUser);        
+
+        List<User> usersDB = userService.findAllPostsByTitleWithComments(
+                "name",
+                PageRequest.of(
+                        0,
+                        maxCount,
+                        Sort.by("login")));
+
+        // then
+        assertEquals(usersDB.size(), maxCount);
+    }    
+}
