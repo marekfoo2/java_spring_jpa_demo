@@ -113,10 +113,9 @@ public class User {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof User)) {
+        if (!(o instanceof User user)) {
             return false;
         }
-        User user = (User) o;
         return Objects.equals(login, user.login);
     }
 

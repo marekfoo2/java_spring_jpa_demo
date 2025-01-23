@@ -46,6 +46,6 @@ public class UserServiceImplTest extends IntegrationTransactionalContext{
                         Sort.by("login")));
 
         // then
-        assertEquals(usersDB.size(), maxCount);
+        assertEquals(maxCount, usersDB.size());
     }    
 }
