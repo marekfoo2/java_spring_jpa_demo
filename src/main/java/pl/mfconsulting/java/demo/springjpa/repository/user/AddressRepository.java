@@ -17,10 +17,10 @@ import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    @Query("Select a from User u join Address a where u = :user")
+    @Query("Select u.addresses from User u where u = :user")
     Set<Address> findAllAddressesForUser(@Param("user") User user);
 
-    @Query("Select a from Address a join fetch User u where u = :user")
+    @Query("Select a from Address a join fetch a.user u where u = :user")
     Set<Address> findAllAddressesWithUser(@Param("user") User user);
 
     @Modifying

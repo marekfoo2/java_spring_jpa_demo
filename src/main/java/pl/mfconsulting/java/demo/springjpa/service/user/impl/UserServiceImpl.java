@@ -1,15 +1,14 @@
 package pl.mfconsulting.java.demo.springjpa.service.user.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pl.mfconsulting.java.demo.springjpa.repository.user.UserRepository;
 import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
 import pl.mfconsulting.java.demo.springjpa.service.user.UserService;
+
+import java.util.List;
 
 @Service
 class UserServiceImpl implements UserService {
@@ -32,7 +31,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
 }

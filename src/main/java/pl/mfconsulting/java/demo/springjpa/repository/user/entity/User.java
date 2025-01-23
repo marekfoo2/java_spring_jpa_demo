@@ -1,8 +1,6 @@
 package pl.mfconsulting.java.demo.springjpa.repository.user.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -96,7 +94,7 @@ public class User {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    private List<Address> addresses = new ArrayList<>();
+    private Set<Address> addresses = new HashSet<>();
     
 
     @Override
@@ -127,4 +125,11 @@ public class User {
         return Objects.hash(login);
     }
 
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
 }
