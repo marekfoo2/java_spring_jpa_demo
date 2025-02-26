@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 
 public interface UserService {
 
-    void addUser(User user);
+    void addUser(Account account);
 
-    List<User> findAllPostsByTitleWithComments(
+    List<Account> findAllPostsByTitleWithComments(
             String firstNamePattern,
             PageRequest pageRequest);
 }

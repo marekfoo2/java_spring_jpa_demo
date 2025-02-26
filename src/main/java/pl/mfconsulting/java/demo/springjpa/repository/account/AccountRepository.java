@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user;
+package pl.mfconsulting.java.demo.springjpa.repository.account;
 
 import java.util.List;
 import java.util.Set;
@@ -9,40 +9,40 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 
 /**
- * This repository only operates on User table only.
+ * This repository only operates on Account table only.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    @Query("select u from User u")
-    Set<User> find();
+    @Query("select u from Account u")
+    Set<Account> find();
 
-    @Query("Select u from User u where u.login = :login")
-    User findByLogin(@Param("login") String login);
+    @Query("Select u from Account u where u.login = :login")
+    Account findByLogin(@Param("login") String login);
 
     @Query(value = """
             select u.id
-            from User u
+            from Account u
             where u.firstName like :firstNamePattern
             """
             , countQuery = """
             select count(u)
-            from User u
+            from Account u
             where u.firstName like :firstNamePattern
             """)
-    List<Long> findAllUserIdsByName(
+    List<Long> findAllAccountIdsByName(
             @Param("firstNamePattern") String firstNamePattern,
             Pageable pageable);
 
     @Query("""
             select u
-            from User u
+            from Account u
             left join fetch u.addresses
-            where u.id in :userIds
+            where u.id in :accountIds
             """)
-    List<User> findAllByIdWithAddresses(
-            @Param("userIds") List<Long> userIds);
+    List<Account> findAllByIdWithAddresses(
+            @Param("accountIds") List<Long> accountIds);
 }

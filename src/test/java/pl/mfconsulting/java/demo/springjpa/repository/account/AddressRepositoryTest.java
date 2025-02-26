@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user;
+package pl.mfconsulting.java.demo.springjpa.repository.account;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.Address;
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Address;
 
 @DataJpaTest
 public class AddressRepositoryTest {
 
     @Autowired
-    UserRepository userRepo;
+    AccountRepository userRepo;
 
     @Autowired
     AddressRepository addressRepo;
@@ -25,10 +25,10 @@ public class AddressRepositoryTest {
     @Test
     public void whenAddAddressToUserThenOK() {
         // given
-        User userDB = createUser("aladyn");
+        Account accountDB = createUser("aladyn");
 
         Address address = new Address("Domowy", "Wilk", "12-342", "Wro");
-        address.setUser(userRepo.getReferenceById(userDB.getId()));
+        address.setUser(userRepo.getReferenceById(accountDB.getId()));
 
         // when
         Address addressDB = addressRepo.saveAndFlush(address);
@@ -40,10 +40,10 @@ public class AddressRepositoryTest {
     @Test
     public void whenUpdateOnlyStreetThenUpdatedOnlyIt() {
         // given
-        User user = createUser("alladyn");
+        Account account = createUser("alladyn");
 
         Address address = new Address("Domowy", "Wilk", "12-342", "Wro");
-        address.setUser(userRepo.getReferenceById(user.getId()));
+        address.setUser(userRepo.getReferenceById(account.getId()));
 
         Address addressDB = addressRepo.saveAndFlush(address);
         addressDB.setStreet("Wilk1");
@@ -59,9 +59,9 @@ public class AddressRepositoryTest {
     @Test
     public void whenAddListOfAddAddressToUserThenOK() {
         // given
-        User user = createUser("aladyn1");
+        Account account = createUser("aladyn1");
 
-        List<Address> addresses = addAddressesToUser(user, 10);
+        List<Address> addresses = addAddressesToUser(account, 10);
 
         // when
         List<Address> addressesDB = addressRepo.saveAllAndFlush(addresses);
@@ -72,8 +72,8 @@ public class AddressRepositoryTest {
     @Test
     public void whenUpdateListOfAddAddressForUserThenOK() {
         // given
-        User userDB = createUser("alladyn2");
-        List<Address> addresses = addAddressesToUser(userDB, 10);
+        Account accountDB = createUser("alladyn2");
+        List<Address> addresses = addAddressesToUser(accountDB, 10);
         List<Address> addressesDB = addressRepo.saveAllAndFlush(addresses);
 
         // when
@@ -87,12 +87,12 @@ public class AddressRepositoryTest {
     @Test
     public void whenUserExistsThenFindAllAddresses() {
         // given
-        User user = createUser("alladyn3");
-        List<Address> addresses = addAddressesToUser(user, 5);
+        Account account = createUser("alladyn3");
+        List<Address> addresses = addAddressesToUser(account, 5);
         addressRepo.saveAllAndFlush(addresses);
 
         // when
-        Set<Address> addressesAfterFind = addressRepo.findAllAddressesForUser(user);
+        Set<Address> addressesAfterFind = addressRepo.findAllAddressesForAccount(account);
 
         // then
         assertEquals(addresses.size(), addressesAfterFind.size());
@@ -101,33 +101,33 @@ public class AddressRepositoryTest {
     @Test
     public void whenUserExistsThenFetchHimAndAllAddresses() {
         // given
-        User user = createUser("alladyn3");
-        List<Address> addresses = addAddressesToUser(user, 5);
+        Account account = createUser("alladyn3");
+        List<Address> addresses = addAddressesToUser(account, 5);
         addressRepo.saveAllAndFlush(addresses);
 
         // when
-        Set<Address> addressesAfterFind = addressRepo.findAllAddressesWithUser(user);
+        Set<Address> addressesAfterFind = addressRepo.findAllAddressesWithAccount(account);
 
         // then
         String loginAfterSeach = addressesAfterFind.stream().findFirst().get().getUser().getLogin();
-        assertEquals(user.getLogin(), loginAfterSeach);
+        assertEquals(account.getLogin(), loginAfterSeach);
     }
 
-    private List<Address> addAddressesToUser(User userDB, int quantOfAddresses) {
+    private List<Address> addAddressesToUser(Account accountDB, int quantOfAddresses) {
         List<Address> addresses = new ArrayList<>();
         for (int i = 0; i < quantOfAddresses; i++) {
             Address address = new Address("Domowy" + i, "Wilk" + 1, "12-342", "Wro");
-            address.setUser(userRepo.getReferenceById(userDB.getId()));
+            address.setUser(userRepo.getReferenceById(accountDB.getId()));
             addresses.add(address);
         }
 
         return addresses;
     }
 
-    private User createUser(String login) {
-        User user = new User(login);
-        user.setEmail("safsf");
-        return userRepo.saveAndFlush(user);
+    private Account createUser(String login) {
+        Account account = new Account(login);
+        account.setEmail("safsf");
+        return userRepo.saveAndFlush(account);
     }
 
 }

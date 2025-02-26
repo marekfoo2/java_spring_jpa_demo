@@ -7,32 +7,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
-import pl.mfconsulting.java.demo.springjpa.repository.user.UserRepository;
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.AccountRepository;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 
 
 @SpringBootTest
 public class IntegrationTransactionalContext extends AbstractTransactionalJUnit4SpringContextTests{
     
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
-    public List<User> createAndSaveUsers(int quant) {
-        List<User> users = createUsers(quant);
+    public List<Account> createAndSaveUsers(int quant) {
+        List<Account> accounts = createUsers(quant);
 
-        userRepository.saveAllAndFlush(users);
-        return users;
+        accountRepository.saveAllAndFlush(accounts);
+        return accounts;
     }
 
-    public List<User> createUsers(int quant) {
-        List<User> users = new ArrayList<>(quant);
+    public List<Account> createUsers(int quant) {
+        List<Account> accounts = new ArrayList<>(quant);
         for (int i = 0; i < quant; i++) {
-            User user1 = new User("login" + i);
-            user1.setFirstName("name");
-            user1.setLastName("lastName" + i);
-            users.add(user1);
+            Account account1 = new Account("login" + i);
+            account1.setFirstName("name");
+            account1.setLastName("lastName" + i);
+            accounts.add(account1);
         }
 
-        return users;
+        return accounts;
     }
 }

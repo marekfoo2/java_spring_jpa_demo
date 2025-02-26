@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user.entity;
+package pl.mfconsulting.java.demo.springjpa.repository.account.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 
 // import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class UserTest {
+public class AccountTest {
   
   @Test
   void verifyEquals() {
-    User user1 = new User("12");
-    User user2 = new User("12");
+    Account account1 = new Account("12");
+    Account account2 = new Account("12");
 
-    Set<User> users = new HashSet<>();
-    users.add(user2);
-    users.add(user1);
+    Set<Account> accounts = new HashSet<>();
+    accounts.add(account2);
+    accounts.add(account1);
 
-    assertEquals(users.size(), 1);
+    assertEquals(accounts.size(), 1);
     // EqualsVerifier.forClass(User.class).withOnlyTheseFields("login").verify();
   }
 }

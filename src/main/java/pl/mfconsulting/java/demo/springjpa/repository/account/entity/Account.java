@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user.entity;
+package pl.mfconsulting.java.demo.springjpa.repository.account.entity;
 
 import java.util.*;
 
@@ -13,20 +13,20 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER")
-@SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_ID_SEQ", initialValue = 100, allocationSize = 1)
-public class User {
+@Table(name = "ACCOUNT")
+@SequenceGenerator(name = "ACCOUNT_SEQ", sequenceName = "ACCOUNT_ID_SEQ", initialValue = 100, allocationSize = 1)
+public class Account {
 
-    protected User() {
+    protected Account() {
         this.login = "";
     } // Only for JPA
 
-    public User(String login) {
+    public Account(String login) {
         this.login = login;
     }
 
     @Id
-    @GeneratedValue(generator = "USER_SEQ")
+    @GeneratedValue(generator = "ACCOUNT_SEQ")
     private Long id;
 
     public Long getId() {
@@ -90,7 +90,7 @@ public class User {
     }
 
     @OneToMany(
-        mappedBy = "user",
+        mappedBy = "account",
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
@@ -113,10 +113,11 @@ public class User {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof User user)) {
+        if (!(o instanceof Account)) {
             return false;
         }
-        return Objects.equals(login, user.login);
+        Account account = (Account) o;
+        return Objects.equals(login, account.login);
     }
 
     @Override

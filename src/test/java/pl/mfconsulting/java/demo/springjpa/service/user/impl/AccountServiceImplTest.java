@@ -13,11 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import pl.mfconsulting.java.demo.springjpa.configuration.IntegrationTransactionalContext;
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 import pl.mfconsulting.java.demo.springjpa.service.user.UserService;
 
 
-public class UserServiceImplTest extends IntegrationTransactionalContext{
+public class AccountServiceImplTest extends IntegrationTransactionalContext{
 
     @Autowired
     private UserService userService;
@@ -35,10 +35,10 @@ public class UserServiceImplTest extends IntegrationTransactionalContext{
         int quant = 100;
         int maxCount = 25;
 
-        List<User> users = createAndSaveUsers(quant);
-        users.forEach(userService::addUser);        
+        List<Account> accounts = createAndSaveUsers(quant);
+        accounts.forEach(userService::addUser);
 
-        List<User> usersDB = userService.findAllPostsByTitleWithComments(
+        List<Account> usersDB = userService.findAllPostsByTitleWithComments(
                 "name",
                 PageRequest.of(
                         0,

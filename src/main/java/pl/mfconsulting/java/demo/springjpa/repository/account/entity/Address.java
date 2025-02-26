@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user.entity;
+package pl.mfconsulting.java.demo.springjpa.repository.account.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -82,14 +82,14 @@ public class Address {
     }
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account account;
 
-    public User getUser() {
-        return this.user;
+    public Account getUser() {
+        return this.account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Account account) {
+        this.account = account;
     }
 }

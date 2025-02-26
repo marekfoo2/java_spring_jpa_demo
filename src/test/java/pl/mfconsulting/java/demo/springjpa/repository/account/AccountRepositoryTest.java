@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user;
+package pl.mfconsulting.java.demo.springjpa.repository.account;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,24 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import pl.mfconsulting.java.demo.springjpa.repository.common.random.MyRandom;
-import pl.mfconsulting.java.demo.springjpa.repository.user.entity.User;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 
 @DataJpaTest
-public class UserRepositoryTest {
+public class AccountRepositoryTest {
 
     @Autowired
-    UserRepository repository;
+    AccountRepository repository;
 
     @Test
     public void whenFindByFirstNameThenReturnUsers() {
-        User user = new User("login1");
-        user.setFirstName("FirstName1");
-        User userDB1 = repository.saveAndFlush(user);
-        user = new User("login2");
-        user.setFirstName("FirstName1");
-        User userDB2 = repository.saveAndFlush(user);
+        Account account = new Account("login1");
+        account.setFirstName("FirstName1");
+        Account accountDB1 = repository.saveAndFlush(account);
+        account = new Account("login2");
+        account.setFirstName("FirstName1");
+        Account accountDB2 = repository.saveAndFlush(account);
 
-        List<User> usersFromDB = repository.findAllByIdWithAddresses(List.of(userDB1.getId(), userDB2.getId()));
+        List<Account> usersFromDB = repository.findAllByIdWithAddresses(List.of(accountDB1.getId(), accountDB2.getId()));
         
         //then
         assertEquals(usersFromDB.size(), 2);
@@ -40,28 +40,28 @@ public class UserRepositoryTest {
 
     @Test
     public void whenFindByIdThenReturnUser() {
-        User user = new User("alada");
-        user.setEmail("safsf");
-        User userDB = repository.saveAndFlush(user);
+        Account account = new Account("alada");
+        account.setEmail("safsf");
+        Account accountDB = repository.saveAndFlush(account);
 
-        Optional<User> userFromDB = repository.findById(userDB.getId());
-        User user1 = userFromDB.get();
+        Optional<Account> userFromDB = repository.findById(accountDB.getId());
+        Account account1 = userFromDB.get();
 
         assertTrue(userFromDB.isPresent());
-        assertEquals(userDB.getId(), user1.getId());
+        assertEquals(accountDB.getId(), account1.getId());
     }
 
     @Test
     public void whenSaveWithTooLongEmailThenThrowException() {
         // given
-        User user = new User("alada");
-        user.setEmail("fsjflsajflsajflsjflsajflsakflsjflsjfsklfjlsdjfasjf2o3u02u30ur0sadlfjasdfassdf");
+        Account account = new Account("alada");
+        account.setEmail("fsjflsajflsajflsjflsajflsakflsjflsjfsklfjlsdjfasjf2o3u02u30ur0sadlfjasdfassdf");
 
         // when
         ConstraintViolationException thrown = Assertions.assertThrows(
                 jakarta.validation.ConstraintViolationException.class,
                 () -> {
-                    repository.saveAndFlush(user);
+                    repository.saveAndFlush(account);
                 });
 
         Assertions.assertTrue(thrown.getMessage().contains("Max size is 60!"));
@@ -70,12 +70,12 @@ public class UserRepositoryTest {
     @Test
     public void whenSaveAllInBatchInsertThenCountIsCorrectAndFaster() {
         int n = 10;
-        List<User> users = new ArrayList<>(n);
+        List<Account> accounts = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            users.add(new User(MyRandom.randStr(20)));
+            accounts.add(new Account(MyRandom.randStr(20)));
         }
 
-        List<User> usersDB = repository.saveAllAndFlush(users);
+        List<Account> usersDB = repository.saveAllAndFlush(accounts);
 
         assertEquals(usersDB.size(), n);
     }
@@ -85,7 +85,7 @@ public class UserRepositoryTest {
         int n = 10;
         for (int i = 0; i < n; i++) {
             // Very long, not recommended!
-            repository.saveAndFlush(new User(MyRandom.randStr(20)));
+            repository.saveAndFlush(new Account(MyRandom.randStr(20)));
         }
 
         assertEquals(repository.findAll().size(), n);

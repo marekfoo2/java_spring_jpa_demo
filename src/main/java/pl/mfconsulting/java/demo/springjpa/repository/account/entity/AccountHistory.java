@@ -1,4 +1,4 @@
-package pl.mfconsulting.java.demo.springjpa.repository.user.entity;
+package pl.mfconsulting.java.demo.springjpa.repository.account.entity;
 
 import java.time.LocalDateTime;
 
@@ -11,12 +11,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER_HISTORY")
-@SequenceGenerator(name = "LOGIN_HISTORY_SEQ", sequenceName = "USER_HISTORY_ID_SEQ", initialValue = 100, allocationSize = 1)
-public class UserHistory {
+@Table(name = "ACCOUNT_HISTORY")
+@SequenceGenerator(name = "ACCOUNT_HISTORY_SEQ", sequenceName = "ACCOUNT_HISTORY_ID_SEQ", initialValue = 100, allocationSize = 1)
+public class AccountHistory {
     
     @Id
-    @GeneratedValue(generator = "LOGIN_HISTORY_SEQ")
+    @GeneratedValue(generator = "ACCOUNT_HISTORY_SEQ")
     private Long id;
 
     @Column(name = "LOGIN", nullable = false)
@@ -33,11 +33,11 @@ public class UserHistory {
     @Column(name = "IS_SUCCESS", nullable = false, length = 1)
     private String isSuccess;
 
-    protected UserHistory() {
+    protected AccountHistory() {
         this.login = "";
     } 
     
-    public UserHistory(String login, String ipAddress, Boolean  isSuccess){
+    public AccountHistory(String login, String ipAddress, Boolean  isSuccess){
         this.login = login;
         this.ipAddress = ipAddress;
         this.lastLogin = LocalDateTime.now();
