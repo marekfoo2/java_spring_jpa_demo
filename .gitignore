@@ -77,3 +77,4 @@ java-kata/build/tmp/compileJava/previous-compilation-data.bin
 /build/
 /gradlew.bat
 /gradlew
+/data/dev.mv.db
