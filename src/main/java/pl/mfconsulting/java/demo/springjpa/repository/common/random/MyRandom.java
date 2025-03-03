@@ -14,7 +14,7 @@ public final class MyRandom {
         return UUID.randomUUID().toString();
     }
 
-    public static String randStr(int n){
+    public static String randStr(int n) {
         return UUID.randomUUID().toString().substring(0, n);
     }
 }

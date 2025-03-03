@@ -1,19 +1,18 @@
 package pl.mfconsulting.java.demo.springjpa.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-
 import pl.mfconsulting.java.demo.springjpa.repository.account.AccountRepository;
 import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @SpringBootTest
-public class IntegrationTransactionalContext extends AbstractTransactionalJUnit4SpringContextTests{
-    
+public class IntegrationTransactionalContext extends AbstractTransactionalJUnit4SpringContextTests {
+
     @Autowired
     private AccountRepository accountRepository;
 

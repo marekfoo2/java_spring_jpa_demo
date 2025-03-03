@@ -5,7 +5,7 @@ import java.util.List;
 public interface HibernateRepository<T> {
     /**
      * Too danger to be used. Performance.
-     * 
+     *
      * @return Throws UnsupportedOperationException
      */
     @Deprecated
@@ -13,7 +13,7 @@ public interface HibernateRepository<T> {
 
     /**
      * Too danger to be used. Performance.
-     * 
+     *
      * @return Throws UnsupportedOperationException
      */
     @Deprecated
@@ -21,7 +21,7 @@ public interface HibernateRepository<T> {
 
     /**
      * Too danger to be used. Performance.
-     * 
+     *
      * @return Throws UnsupportedOperationException
      */
     @Deprecated
@@ -29,7 +29,7 @@ public interface HibernateRepository<T> {
 
     /**
      * Too danger to be used. Performance.
-     * 
+     *
      * @return Throws UnsupportedOperationException
      */
     @Deprecated
@@ -37,7 +37,7 @@ public interface HibernateRepository<T> {
 
     /**
      * Too danger to be used. Performance.
-     * 
+     *
      * @return Throws UnsupportedOperationException
      */
     @Deprecated

@@ -1,20 +1,15 @@
 package pl.mfconsulting.java.demo.springjpa.repository.account.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ACCOUNT_HISTORY")
 @SequenceGenerator(name = "ACCOUNT_HISTORY_SEQ", sequenceName = "ACCOUNT_HISTORY_ID_SEQ", initialValue = 100, allocationSize = 1)
 public class AccountHistory {
-    
+
     @Id
     @GeneratedValue(generator = "ACCOUNT_HISTORY_SEQ")
     private Long id;
@@ -22,7 +17,7 @@ public class AccountHistory {
     @Column(name = "LOGIN", nullable = false)
     @Size(max = 30, message = "Max size is 30!")
     private String login;
-        
+
     @Column(name = "LAST_LOGIN", nullable = false)
     private LocalDateTime lastLogin;
 
@@ -35,9 +30,9 @@ public class AccountHistory {
 
     protected AccountHistory() {
         this.login = "";
-    } 
-    
-    public AccountHistory(String login, String ipAddress, Boolean  isSuccess){
+    }
+
+    public AccountHistory(String login, String ipAddress, Boolean isSuccess) {
         this.login = login;
         this.ipAddress = ipAddress;
         this.lastLogin = LocalDateTime.now();
@@ -65,10 +60,10 @@ public class AccountHistory {
     }
 
     public Boolean isSuccess() {
-        return Boolean.valueOf(isSuccess) ;
+        return Boolean.valueOf(isSuccess);
     }
-    
+
     protected void setIsSuccess(Boolean string) {
-        this.isSuccess =  (string) ? "1" : "0";
+        this.isSuccess = (string) ? "1" : "0";
     }
 }

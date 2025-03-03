@@ -1,20 +1,18 @@
 package pl.mfconsulting.java.demo.springjpa.repository.account;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.mfconsulting.java.demo.springjpa.configuration.IntegrationTransactionalContext;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Address;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
-import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Address;
-
-@DataJpaTest
-public class AddressRepositoryTest {
+public class AddressRepositoryTest extends IntegrationTransactionalContext {
 
     @Autowired
     AccountRepository userRepo;

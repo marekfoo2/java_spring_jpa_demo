@@ -4,20 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pl.mfconsulting.java.demo.springjpa.repository.account.AccountRepository;
 import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
-import pl.mfconsulting.java.demo.springjpa.service.user.UserService;
+import pl.mfconsulting.java.demo.springjpa.service.user.AccountService;
 
 import java.util.List;
 
 @Service
-class UserServiceImpl implements UserService {
+class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
     @Autowired
-    public UserServiceImpl(AccountRepository accountRepository) {
+    public AccountServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 

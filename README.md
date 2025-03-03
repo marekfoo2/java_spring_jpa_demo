@@ -1,12 +1,13 @@
 # JAVA SPRING JPA DEMO #
+
 Vczxt6HjyqVwVA4eVaaR
 
 It is simple demo presenting approach how to use spring REST with JPA repositories.
 
 ### Tech stuck ###
 
-* spring web - web communication 
-* spring jpa - repositories 
+* spring web - web communication
+* spring jpa - repositories
 * junit5 - test lib
 * flyway - db migration tool
 * gradle - build tool
@@ -24,11 +25,14 @@ It is simple demo presenting approach how to use spring REST with JPA repositori
 * Deployment instructions
 
 ### Execution ###
+
 - app access: http://localhost:8080/
 - db access: http://localhost:8080/h2-console
 
 ### Tools ###
-* gradle -q dependencies --configuration testRuntimeClasspath - shows dependences for tests 
+
+* gradle -q dependencies --configuration testRuntimeClasspath - shows dependences for tests
+
 ### Contribution guidelines ###
 
 * Writing tests

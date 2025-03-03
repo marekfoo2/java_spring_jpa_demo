@@ -12,7 +12,7 @@ spring:
       settings.trace: false #prevent trace output
       settings.web-allow-others: false #disable remote access
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect        
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop #update      
     open-in-view: false
@@ -26,8 +26,8 @@ spring:
         query:
           fail_on_pagination_over_collection_fetch: true #In case of propagation in memory throws exception
       jdbc:
-        time_zone: UTC  
-    show-sql: true  
+        time_zone: UTC
+    show-sql: true
   sql:
     init:
-      #data-locations: data-trans.sql #initial data      
+    #data-locations: data-trans.sql #initial data

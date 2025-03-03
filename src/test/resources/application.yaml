@@ -3,11 +3,11 @@ spring:
     # url: jdbc:h2:file:./data/test_dev
     url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
     username: sa
-    password: 
+    password:
     driverClassName: org.h2.Driver
   flyway:
     locations: classpath:/db/migration
-  h2:    
+  h2:
     defer-datasource-initialization: true # recreating the schema
     console:
       enabled: true
@@ -15,12 +15,12 @@ spring:
       settings.trace: false
       settings.web-allow-others: false
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect        
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop      
+      ddl-auto: create-drop
     open-in-view: false
-    properties: 
-      hibernate: 
+    properties:
+      hibernate:
         generate_statistics: true
         globally_quoted_identifiers: true
         order_inserts: true

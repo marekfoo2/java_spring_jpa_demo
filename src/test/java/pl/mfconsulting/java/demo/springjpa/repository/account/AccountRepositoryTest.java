@@ -1,24 +1,21 @@
 package pl.mfconsulting.java.demo.springjpa.repository.account;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import jakarta.validation.ConstraintViolationException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.mfconsulting.java.demo.springjpa.configuration.IntegrationTransactionalContext;
+import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
+import pl.mfconsulting.java.demo.springjpa.repository.common.random.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.validation.ConstraintViolationException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import pl.mfconsulting.java.demo.springjpa.repository.common.random.MyRandom;
-import pl.mfconsulting.java.demo.springjpa.repository.account.entity.Account;
-
-@DataJpaTest
-public class AccountRepositoryTest {
+public class AccountRepositoryTest extends IntegrationTransactionalContext {
 
     @Autowired
     AccountRepository repository;
@@ -33,7 +30,7 @@ public class AccountRepositoryTest {
         Account accountDB2 = repository.saveAndFlush(account);
 
         List<Account> usersFromDB = repository.findAllByIdWithAddresses(List.of(accountDB1.getId(), accountDB2.getId()));
-        
+
         //then
         assertEquals(usersFromDB.size(), 2);
     }

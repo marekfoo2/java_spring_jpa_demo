@@ -1,73 +1,73 @@
 plugins {
-	id 'java'
-	id 'org.flywaydb.flyway' version '11.3.0'
-	id 'org.springframework.boot' version '3.4.3'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.flywaydb.flyway' version '11.3.0'
+    id 'org.springframework.boot' version '3.4.3'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'pl.mfconsulting.java'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
-} 
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
 
 dependencies {
-	implementation ('org.springframework.boot:spring-boot-starter-data-jpa',
-	"org.springframework.boot:spring-boot-starter-validation")
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa',
+            "org.springframework.boot:spring-boot-starter-validation")
 
-	implementation('org.springframework.boot:spring-boot-starter-web'){
-		exclude group:'org.springframework.boot', module:'spring-boot-starter-tomcat'
-	}
-	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.19.1'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.19.1'
 
 
-	//H2
-	runtimeOnly 'com.h2database:h2'
-	
-	implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.3.0'
+    //H2
+    runtimeOnly 'com.h2database:h2'
+
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.3.0'
 
 
 //	testImplementation('org.springframework.boot:spring-boot-starter-test',
 //	  'org.junit.jupiter:junit-jupiter')
 
 
-	//H2
+    //H2
     // testImplementation 'com.h2database:h2'
 
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 clean.doFirst {
     file('data/test_dev.mv.db').delete()
     file('data/dev_dev.mv.db').delete()
-	file('/home/ice/.gradle/daemon/8.12/data/dev.mv.db').delete()
-	file('/home/ice/.gradle/daemon/8.12/data/test_dev.mv.db').delete()
+    file('/home/ice/.gradle/daemon/8.12/data/dev.mv.db').delete()
+    file('/home/ice/.gradle/daemon/8.12/data/test_dev.mv.db').delete()
 }
 
 
@@ -81,11 +81,11 @@ bootRunDev.finalizedBy bootRun
 
 //Run migration for dev
 flyway {
-	url = 'jdbc:h2:file:./data/dev'
-	user = 'sa'
-	password = ''
-	schemas = ['public']
-	locations = ['classpath:db/migration']
+    url = 'jdbc:h2:file:./data/dev'
+    user = 'sa'
+    password = ''
+    schemas = ['public']
+    locations = ['classpath:db/migration']
 }
 
 build.dependsOn(flywayMigrate)
